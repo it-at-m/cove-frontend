@@ -144,7 +144,7 @@ mvn clean spring-boot:run -Dspring-boot.run.jvmArguments="-Dspring.profiles.acti
 ```
 
 ## Lizenzierung und Copyright ##
-© Copyright 2019 – it@M
+© Copyright 2020 – it@M
 
 *COVe* ist lizenziert unter der *European Union Public Licence (EUPL)*.
 Für mehr Informationen siehe `LICENSE`.
