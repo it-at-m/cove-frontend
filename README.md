@@ -143,10 +143,11 @@ mvn clean install
 mvn clean spring-boot:run -Dspring-boot.run.jvmArguments="-Dspring.profiles.active=local,no-security"
 ```
 
+## Lizenzierung und Copyright ##
+© Copyright 2019 – it@M
 
-## Lizenz
-
-COVe ist lizenziert unter der European Union Public Licence (EUPL). Für mehr Informationen siehe `LICENSE`.
+*COVe* ist lizenziert unter der *European Union Public Licence (EUPL)*.
+Für mehr Informationen siehe `LICENSE`.
 
 
 
