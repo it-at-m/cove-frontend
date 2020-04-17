@@ -1,0 +1,8 @@
+# NO-SECURITY CONFIGURATION
+spring:
+  h2.console.enabled: true
+  cloud:
+    gateway:
+      default-filters:
+        - RemoveResponseHeader=Expires
+        - RemoveRequestHeader=cookie

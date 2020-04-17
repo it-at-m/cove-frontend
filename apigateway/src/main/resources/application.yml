@@ -1,0 +1,53 @@
+spring:
+  application.name: cove-frontend-apigateway
+  banner.location: banner.txt
+  main:
+    web-application-type: reactive
+  jackson:
+    serialization:
+      indent-output: on
+  session:
+    timeout: 36000  # in seconds; Goal: same lifetime like SSO Session (e.g. 10 hours)
+  cloud:
+    gateway:
+      default-filters:
+        - RemoveResponseHeader=Expires
+        - RemoveRequestHeader=cookie
+        - RemoveRequestHeader=x-xsrf-token
+        - RemoveRequestHeader=origin
+        - CustomTokenRelay=
+
+server:
+  port: 8082
+  error:
+    include-exception: false
+    include-stacktrace: never
+    whitelabel:
+      enabled: false
+
+
+management:
+  endpoints:
+    enabled-by-default: false
+    web:
+      cors:
+        allowedOrigins:
+          - "http://localhost:8081"
+          - "http://127.0.0.1:8081"
+        allowedMethods: "*"
+        allowedHeaders: "*"
+        allowCredentials: on
+        maxAge: 3600
+      exposure:
+        include: 'health, info, prometheus'
+      path-mapping:
+          prometheus: 'metrics'
+  endpoint:
+    health:
+      enabled: on
+    info:
+      enabled: on
+    prometheus:
+      enabled: true
+info.application.name: ${spring.application.name}
+info.application.version: v1.0-SNAPSHOT

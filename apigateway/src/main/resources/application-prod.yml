@@ -1,0 +1,58 @@
+server.port: 8080
+
+spring:
+
+  # Define the keycloak productive realm here
+  realm:
+
+  # spring cloud gateway config
+  cloud:
+    gateway:
+      actuator:
+        verbose:
+          enabled: false
+      globalcors:
+        corsConfigurations:
+          # The cors configuration to allow frontend developers cross origin request via this api gateway
+          '[/**]':
+            allowedOrigins:
+              - "http://localhost:8081"
+              - "http://127.0.0.1:8081"
+            allowedMethods: "*"
+            allowedHeaders: "*"
+            allowCredentials: true
+            maxAge: 3600
+      routes:
+        - id: userinfo
+          uri:
+          predicates:
+            - Path=/api/userinfo/**
+          filters:
+            - RewritePath=/api/userinfo/(?<urlsegments>.*), /$\{urlsegments}
+        - id: backend
+          uri:
+          predicates:
+            - Path=/api/cove-backend-service/**
+          filters:
+            - RewritePath=/api/cove-backend-service/(?<urlsegments>.*), /$\{urlsegments}
+            - RemoveResponseHeader=WWW-Authenticate
+      default-filters:
+        - RemoveResponseHeader=Expires
+        - RemoveRequestHeader=cookie
+        - RemoveRequestHeader=x-xsrf-token
+        - CustomTokenRelay=
+
+  # security config
+  security:
+    oauth2:
+      client:
+        provider:
+          keycloak:
+            issuer-uri:
+        registration:
+          keycloak:
+            client-id:
+            client-secret:
+
+  http:
+    log-request-details: false
